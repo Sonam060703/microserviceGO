@@ -1,0 +1,9 @@
+schema: schema.graphql
+
+models:
+  Account:
+    model: github.com/Sonam080804/Ecommerce_Backend_Microservices/graphql.Account
+    fields: 
+      orders:
+        resolver: true
+
