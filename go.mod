@@ -1,4 +1,4 @@
-module github.com/Sonam080804/Ecommerce_Backend_Microservices
+module github.com/Sonam060703/microserviceGO
 
 go 1.25.0
 
