@@ -1,3 +1,4 @@
+//go:generate go run github.com/99designs/gqlgen
 package main
 
 import (
@@ -22,10 +23,12 @@ func main() {
 	}
 
 	s, err := NewGraphQLServer(cfg.AccountURL, cfg.CatalogURL, cfg.OrderURL)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	http.Handle("/graphql", handler.GraphQL(s.ToExecutableSchema()))
 	http.Handle("/playground", handler.Playground("akhil", "/graphql"))
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
-
 }
