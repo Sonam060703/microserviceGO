@@ -1,4 +1,4 @@
-//go:generate protoc ./catalog.proto --go_out=plugins=grpc:./pb
+// proto file generate command ->  protoc --go_out=. --go-grpc_out=. catalog.proto
 package catalog
 
 import (
