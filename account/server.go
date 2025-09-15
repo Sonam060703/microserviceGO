@@ -24,6 +24,7 @@ type grpcServer struct {
 	service Service
 }
 
+// Invoked in main.go
 func ListenGRPC(s Service, port int) error {
 	// Listen function of net package to establish tcp connection
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
@@ -32,8 +33,11 @@ func ListenGRPC(s Service, port int) error {
 	}
 	// It will create a new grpc server serv
 	serv := grpc.NewServer()
+	// Register the gRPC server with the Service (Account Service)
 	pb.RegisterAccountServiceServer(serv, &grpcServer{s})
+	// Enable gRPC reflection for debugging tools like Evans/Postman
 	reflection.Register(serv)
+	// Start serving and return any error
 	return serv.Serve(lis)
 }
 

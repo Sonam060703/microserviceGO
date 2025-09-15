@@ -22,6 +22,7 @@ type postgresRepository struct {
 	db *sql.DB
 }
 
+// This fun invoked in main.go
 func NewPostgresRepository(url string) (Repository, error) {
 	// Open connection of postgress db with url
 	db, err := sql.Open("postgres", url)

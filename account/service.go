@@ -27,6 +27,7 @@ type accountService struct {
 	repository Repository
 }
 
+// Invoked in main.go
 func NewService(r Repository) Service {
 	// Function to create new accountService by passing an Repository
 	return &accountService{r}
