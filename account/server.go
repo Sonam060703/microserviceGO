@@ -20,6 +20,7 @@ import (
 
 // server interect with both service and client making grpc calls
 type grpcServer struct {
+	pb.UnimplementedAccountServiceServer
 	// Instance of Service
 	service Service
 }
@@ -34,7 +35,9 @@ func ListenGRPC(s Service, port int) error {
 	// It will create a new grpc server serv
 	serv := grpc.NewServer()
 	// Register the gRPC server with the Service (Account Service)
-	pb.RegisterAccountServiceServer(serv, &grpcServer{s})
+	pb.RegisterAccountServiceServer(serv, &grpcServer{
+		service: s,
+	})
 	// Enable gRPC reflection for debugging tools like Evans/Postman
 	reflection.Register(serv)
 	// Start serving and return any error
