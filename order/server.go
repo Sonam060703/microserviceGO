@@ -56,6 +56,7 @@ func (s *grpcServer) PostOrder(
 	ctx context.Context,
 	r *pb.PostOrderRequest,
 ) (*pb.PostOrderResponse, error) {
+
 	// Check if account exists
 	_, err := s.accountClient.GetAccount(ctx, r.AccountId)
 	if err != nil {
@@ -68,7 +69,9 @@ func (s *grpcServer) PostOrder(
 	for _, p := range r.Products {
 		productIDs = append(productIDs, p.ProductId)
 	}
+
 	orderedProducts, err := s.catalogClient.GetProducts(ctx, 0, 0, productIDs, "")
+
 	if err != nil {
 		log.Println("Error getting products: ", err)
 		return nil, errors.New("products not found")

@@ -54,6 +54,7 @@ func (s *catalogService) GetProducts(ctx context.Context, skip uint64, take uint
 }
 
 func (s *catalogService) GetProductsByIDs(ctx context.Context, ids []string) ([]Product, error) {
+
 	return s.repository.ListProductsWithIDs(ctx, ids)
 }
 

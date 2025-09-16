@@ -32,6 +32,7 @@ func (c *Client) PostOrder(
 	accountID string,
 	products []OrderedProduct,
 ) (*Order, error) {
+
 	protoProducts := []*pb.PostOrderRequest_OrderProduct{}
 	for _, p := range products {
 		protoProducts = append(protoProducts, &pb.PostOrderRequest_OrderProduct{

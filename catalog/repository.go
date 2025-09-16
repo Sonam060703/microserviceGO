@@ -13,6 +13,8 @@ var (
 	ErrNotFound = errors.New("Entity not found")
 )
 
+// Repository interface for the elasticsearch
+
 type Repository interface {
 	Close()
 	PutProduct(ctx context.Context, p Product) error
@@ -109,6 +111,7 @@ func (r *elasticRepository) ListProducts(ctx context.Context, skip, take uint64)
 }
 
 func (r *elasticRepository) ListProductsWithIDs(ctx context.Context, ids []string) ([]Product, error) {
+
 	items := []*elastic.MultiGetItem{}
 	for _, id := range ids {
 		items = append(items, elastic.NewMultiGetItem().Index("catalog").Id(id))
@@ -132,6 +135,7 @@ func (r *elasticRepository) ListProductsWithIDs(ctx context.Context, ids []strin
 			})
 		}
 	}
+
 	return products, nil
 }
 
