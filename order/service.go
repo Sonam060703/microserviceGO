@@ -2,6 +2,7 @@ package order
 
 import (
 	"context"
+
 	"time"
 
 	"github.com/segmentio/ksuid"
@@ -41,6 +42,7 @@ func (s orderService) PostOrder(
 	accountID string,
 	products []OrderedProduct,
 ) (*Order, error) {
+
 	o := &Order{
 		ID:        ksuid.New().String(),
 		CreatedAt: time.Now().UTC(),

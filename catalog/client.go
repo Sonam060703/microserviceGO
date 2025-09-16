@@ -65,6 +65,7 @@ func (c *Client) GetProduct(ctx context.Context, id string) (*Product, error) {
 }
 
 func (c *Client) GetProducts(ctx context.Context, skip uint64, take uint64, ids []string, query string) ([]Product, error) {
+
 	r, err := c.service.GetProducts(
 		ctx,
 		&pb.GetProductsRequest{
@@ -77,6 +78,7 @@ func (c *Client) GetProducts(ctx context.Context, skip uint64, take uint64, ids 
 	if err != nil {
 		return nil, err
 	}
+
 	products := []Product{}
 	for _, p := range r.Products {
 		products = append(products, Product{
@@ -86,5 +88,6 @@ func (c *Client) GetProducts(ctx context.Context, skip uint64, take uint64, ids 
 			Price:       p.Price,
 		})
 	}
+
 	return products, nil
 }

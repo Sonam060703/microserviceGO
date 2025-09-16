@@ -61,6 +61,7 @@ func (s *grpcServer) GetProduct(ctx context.Context, r *pb.GetProductRequest) (*
 }
 
 func (s *grpcServer) GetProducts(ctx context.Context, r *pb.GetProductsRequest) (*pb.GetProductsResponse, error) {
+
 	var res []Product
 	var err error
 	if r.Query != "" {
@@ -87,5 +88,6 @@ func (s *grpcServer) GetProducts(ctx context.Context, r *pb.GetProductsRequest) 
 			},
 		)
 	}
+
 	return &pb.GetProductsResponse{Products: products}, nil
 }

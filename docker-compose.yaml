@@ -6,9 +6,10 @@ services:
       context: .
       dockerfile: ./account/app.dockerfile
     depends_on:
-      - account_db
+      account_db:
+        condition: service_healthy
     environment:
-      DATABASE_URL: postgres://sonam:0987654321@account_db/account?sslmode=disable
+      DATABASE_URL: postgres://akhil:123456@account_db/akhil?sslmode=disable
     restart: on-failure
 
   catalog:
@@ -27,9 +28,10 @@ services:
       context: .
       dockerfile: ./order/app.dockerfile
     depends_on:
-      - order_db
+      order_db:
+        condition: service_healthy
     environment:
-      DATABASE_URL: postgres://sonam:0987654321@order_db/order?sslmode=disable
+      DATABASE_URL: postgres://akhil:123456@order_db/akhil?sslmode=disable
       ACCOUNT_SERVICE_URL: account:8080
       CATALOG_SERVICE_URL: catalog:8080
     restart: on-failure
@@ -54,9 +56,14 @@ services:
       context: ./account
       dockerfile: ./db.dockerfile
     environment:
-      POSTGRES_DB: account
-      POSTGRES_USER: sonam
-      POSTGRES_PASSWORD: 0987654321
+      POSTGRES_DB: akhil
+      POSTGRES_USER: akhil
+      POSTGRES_PASSWORD: 123456
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U akhil"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     restart: unless-stopped
 
   elasticsearch:
@@ -89,9 +96,14 @@ services:
       context: ./order
       dockerfile: ./db.dockerfile
     environment:
-      POSTGRES_DB: order
-      POSTGRES_USER: sonam
-      POSTGRES_PASSWORD: 0987654321
+      POSTGRES_DB: akhil
+      POSTGRES_USER: akhil
+      POSTGRES_PASSWORD: 123456
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U akhil"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     restart: unless-stopped
 
 
